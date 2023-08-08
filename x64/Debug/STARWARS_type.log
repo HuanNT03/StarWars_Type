@@ -1,0 +1,10 @@
+﻿  BasicFunc.cpp
+  Enemy.cpp
+  FileManager.cpp
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\FileManager.cpp(32,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\Game.cpp(40,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  StartScreen.cpp
+  main.cpp
+  Generating Code...
+  STARWARS_type.vcxproj -> C:\VisualStudio2022\source\repos\STARWARS_type\x64\Debug\STARWARS_type.exe
