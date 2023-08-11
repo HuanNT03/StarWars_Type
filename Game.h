@@ -32,6 +32,7 @@ private:
 	bool isRunning;
 	bool isPlaying;
 	bool inStartScreen;
+	bool GameOver;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;

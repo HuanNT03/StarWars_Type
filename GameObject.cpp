@@ -32,11 +32,6 @@ GameObject::GameObject(const char* path, SDL_Renderer* ren, int x, int y, int w,
 
 GameObject::~GameObject()
 {
-	if (renderer != NULL)
-	{
-		SDL_DestroyRenderer(renderer);
-		renderer = NULL;
-	}
 	if (objTexture != NULL)
 	{
 		SDL_DestroyTexture(objTexture);

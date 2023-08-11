@@ -19,9 +19,12 @@ public:
 	~FileManager();
 
 	void normalize(string &str);
-	void writeFile(const char* path, string str);
+	void writeFile(string str);
 	vector<string> getData();
+	string getDataAt(int index);
+	long long getSize() { return arr.size(); }
 
 private:
 	vector<string> arr;
+	const char* filePath;
 };

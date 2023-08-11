@@ -16,11 +16,6 @@ BackGround::BackGround(const char* path, SDL_Renderer* ren)
 
 BackGround::~BackGround()
 {
-	if (renderer != NULL)
-	{
-		SDL_DestroyRenderer(renderer);
-		renderer = NULL;
-	}
 	if (background != NULL)
 	{
 		SDL_DestroyTexture(background);

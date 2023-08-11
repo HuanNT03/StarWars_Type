@@ -3,6 +3,7 @@
 
 FileManager::FileManager(const char* path)
 {
+	filePath = path;
 	ifstream data(path);
 	if (data.is_open()) 
 	{
@@ -17,14 +18,14 @@ FileManager::FileManager(const char* path)
 	}
 	else
 	{
-		cout << "Fail to open data file!" << endl;
+		cout << "Fail to open data file!" << filePath << endl;
 	}
 	data.close();
 }
 
 FileManager::~FileManager()
 {
-
+	arr.clear();
 }
 
 void FileManager::normalize(string &str)
@@ -46,12 +47,27 @@ void FileManager::normalize(string &str)
 	}
 }
 
-void FileManager::writeFile(const char* path, string str)
+void FileManager::writeFile(string str)
 {
-
+	ofstream data(filePath);
+	if (data.is_open())
+	{
+		cout << "Successful open data file!" << endl;
+		data << str;
+	}
+	else
+	{
+		cout << "Fail to open data file!" << filePath << endl;
+	}
+	data.close();
 }
 
 vector<string> FileManager::getData()
 {
 	return arr;
+}
+
+string FileManager::getDataAt(int index)
+{
+	return arr.at(index);
 }

@@ -18,24 +18,24 @@ FontManager::FontManager(const char* path, SDL_Renderer* ren, int fontSize, Uint
 
 FontManager::~FontManager()
 {
-
-	TTF_CloseFont(font);
-	font = NULL;
-
-	SDL_DestroyRenderer(renderer);
-	renderer = NULL;
-
-	SDL_DestroyTexture(textTexture);
-	textTexture = NULL;
-
-
+	if (font != NULL)
+	{
+		TTF_CloseFont(font);
+		font = NULL;
+	}
+	
+	if (textTexture != NULL)
+	{
+		SDL_DestroyTexture(textTexture);
+		textTexture = NULL;
+	}
 }
 
 
 void FontManager::loadRenderedText(const char* text)
 {
 	content = text;
-	/*SDL_Surface**/ textSurface = TTF_RenderText_Solid(font, text, textColor);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
 
 	if (textSurface == NULL)
 	{
@@ -52,9 +52,7 @@ void FontManager::loadRenderedText(const char* text)
 		{
 			width = textSurface->w;
 			height = textSurface->h;
-			
 		}
-		
 		SDL_FreeSurface(textSurface);
 	}
 }
@@ -62,7 +60,7 @@ void FontManager::loadRenderedText(const char* text)
 void FontManager::changeColor(Uint8 r, Uint8 b, Uint8 g)
 {
 	textColor = { r, b, g };
-	loadRenderedText(content);
+	loadRenderedText(content.c_str());
 
 }
 
@@ -86,5 +84,13 @@ void FontManager::render()
 void FontManager::changeRectColor()
 {
 	//SDL_FillRect(textSurface, &desRect, SDL_MapRGB( textSurface->format, 255, 0, 255));
+}
+
+const char* FontManager::at(int index)
+{
+	char at = content[index];
+	const char* letterAt = &at;
+	//cout << "contentAt:" << *(letterAt) << endl;
+	return letterAt;
 }
 

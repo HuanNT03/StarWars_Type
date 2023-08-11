@@ -6,22 +6,21 @@
 #include "FontManager.h"
 #include "StartScreen.h"
 #include "FileManager.h"
-#include "Enemy.h"
+#include "PlayGame.h"
+#include "GameOverScreen.h"
 #include "config.h"
 
 using std::cout;
 using std::endl;
 
-//GameObject* player;
-//AudioManager* themeSong;
+
+
 AudioManager* clickSound;
-BackGround* background;
-//FontManager* text;
+
 StartScreen* startScreen = nullptr;
+PlayGame* playGame;
+GameOverScreen* gameOverScreen;
 
-FileManager* data;
-
-Enemy* enemy[2];
 
 Game::Game()
 {
@@ -32,7 +31,10 @@ Game::Game()
 }
 
 Game::~Game()
-{}
+{
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+}
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -93,31 +95,30 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = true;
 		inStartScreen = true;
 		isPlaying = false;
+		GameOver = false;
 
 		clickSound = new AudioManager();
 		clickSound->loadSoundEffect("audio/mouse-click.mp3");
 
 		startScreen = new StartScreen(renderer);
 
-		enemy[0] = new Enemy(renderer, "hat");
-		enemy[1] = new Enemy(renderer, "cat");
+		playGame = new PlayGame(renderer, false);
+
+		//gameOverScreen = new GameOverScreen(renderer, playGame->winState());
+
 
 		/*data = new FileManager(THE_CAT_IN_THE_HAT_PATH);
 		data->getData();*/
 
 	}
 
-	background = new BackGround("image/background.jpg", renderer);////////test
+	
 
-	/*player = new GameObject("image/x-wing.png", renderer, 0, 0, 100, 100);
-
-	themeSong = new AudioManager();
+	/*themeSong = new AudioManager();
 	themeSong->loadMusic("audio/Star_Wars_Main_Theme_Song.mp3");
 	themeSong->playMusic();*/
 
 
-	/*text = new FontManager(FONT_PATH, renderer, 18, 255, 255, 255);
-	text->loadRenderedText("Start Game!");*/
 
 }
 
@@ -125,26 +126,40 @@ void Game::handleEvents()
 {
 	SDL_Event event;
 
-	SDL_PollEvent(&event);
-	startScreen->handleEvents(event);
-	switch (event.type)
+	while(SDL_PollEvent(&event))
 	{
-	case SDL_QUIT:
-		isRunning = false;
-		break;
-
-	case SDL_MOUSEBUTTONDOWN:
-	{
-		SDL_MouseButtonEvent mouse = event.button;
-		clickSound->playSoundEffect();
-		/*text->changeColor(0, 0, 0);*/
-		if (mouse.button == SDL_BUTTON_LEFT) {
-			printf("Left button pressed at (%d, %d)\n", mouse.x, mouse.y);
+		if (inStartScreen)
+		{
+			startScreen->handleEvents(event);
 		}
-	}
+		else if (isPlaying)
+		{
+			playGame->handleEvent(event);
+		}
+		else if (GameOver)
+		{
+			gameOverScreen->handleEvents(event);
+		}
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			isRunning = false;
+			break;
 
-	default:
-		break;
+		case SDL_MOUSEBUTTONDOWN:
+		{
+			SDL_MouseButtonEvent mouse = event.button;
+			clickSound->playSoundEffect();
+			/*text->changeColor(0, 0, 0);*/
+			if (mouse.button == SDL_BUTTON_LEFT) {
+				printf("Left button pressed at (%d, %d)\n", mouse.x, mouse.y);
+			}
+			break;
+		}
+
+		default:
+			break;
+		}
 	}
 }
 
@@ -165,10 +180,36 @@ void Game::update()
 
 		}
 	}
-	else if (!inStartScreen)
+	if (isPlaying)
 	{
-		enemy[0]->update(0, 0);
-		enemy[1]->update(0, 0);
+		if (currentButton == RETRY_BUTTON)
+		{
+			delete playGame;
+			playGame = new PlayGame(renderer, false);
+			currentButton = NONE;
+		}
+		playGame->update();
+		if (playGame->overState())
+		{
+			isPlaying = false;
+			GameOver = true;
+			currentButton = GAME_OVER;
+		}
+	}
+	if (GameOver)
+	{
+		if (currentButton == GAME_OVER)
+		{
+			gameOverScreen = new GameOverScreen(renderer, playGame->winState());
+			currentButton = NONE;
+		}
+		currentButton = gameOverScreen->getCurrentButton();
+		if (currentButton == RETRY_BUTTON)
+		{
+			gameOverScreen->resetButton();
+			GameOver = false;
+			isPlaying = true;
+		}
 	}
 
 }
@@ -179,15 +220,17 @@ void Game::render()
 	/*background->render();
 	player->render();
 	text->render();*/
-	if (inStartScreen == true)
+	if (inStartScreen)
 	{
 		startScreen->show();
 	}
-	else if (inStartScreen != true)
+	else if (isPlaying)
 	{
-		background->render();
-		enemy[0]->render();
-		enemy[1]->render();
+		playGame->render();
+	}
+	else if (GameOver)
+	{
+		gameOverScreen->show();
 	}
 	
 	SDL_RenderPresent(renderer);
@@ -195,8 +238,11 @@ void Game::render()
 
 void Game::clean()
 {
+	
 	SDL_DestroyWindow(window);
+	window = NULL;
 	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
 
 
 	IMG_Quit();

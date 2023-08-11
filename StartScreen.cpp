@@ -26,12 +26,20 @@ StartScreen::StartScreen(SDL_Renderer* ren)
 
 StartScreen::~StartScreen()
 {
-	SDL_DestroyRenderer(renderer);
-	renderer = NULL;
-
 	delete background;
+	background = NULL;
+
 	delete mainTheme;
+	mainTheme = NULL;
+
 	delete startButton;
+	startButton = NULL;
+
+	delete gameLogo;
+	gameLogo = NULL;
+
+	delete gameTitle;
+	gameTitle = NULL;
 }
 
 

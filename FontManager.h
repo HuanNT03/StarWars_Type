@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Game.h"
+#include "string"
+
+using std::string;
 
 class FontManager
 {
@@ -13,6 +16,9 @@ public:
 	void changeColor(Uint8 r, Uint8 b, Uint8 g);
 	void render();
 
+	const char* getContent() { return content.c_str(); }
+	const char* at(int index);
+
 	void changeRectColor(); // chua thuc hien duoc
 
 	SDL_Rect getRect() { return desRect; }
@@ -21,7 +27,7 @@ public:
 
 private:
 
-	const char* content;
+	string content;
 	int xpos, ypos, width, height;
 	int size;
 
@@ -30,7 +36,7 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Texture* textTexture;
 	SDL_Rect desRect;
-	SDL_Surface* textSurface;
+	//SDL_Surface* textSurface;
 	
 };
 
