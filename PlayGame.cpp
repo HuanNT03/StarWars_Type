@@ -23,7 +23,7 @@ PlayGame::PlayGame(SDL_Renderer* ren, bool _loop)
 	explodeEffect = new AudioManager();
 	explodeEffect->loadSoundEffect(EXPLODE_SOUND_PATH);
 
-	FileManager* tempQuote = new FileManager("data/test.txt"/*THE_CAT_IN_THE_HAT_PATH*/);
+	FileManager* tempQuote = new FileManager(THE_CAT_IN_THE_HAT_PATH);
 	quote = tempQuote->getData();
 
 	delete tempQuote;

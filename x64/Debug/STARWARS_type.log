@@ -1,6 +1,3 @@
-﻿  Game.cpp
-C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\Game.cpp(42,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  PlayGame.cpp
+﻿  PlayGame.cpp
 C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\PlayGame.cpp(69,15): warning C4018: '>=': signed/unsigned mismatch
-  Generating Code...
   STARWARS_type.vcxproj -> C:\VisualStudio2022\source\repos\STARWARS_type\x64\Debug\STARWARS_type.exe
