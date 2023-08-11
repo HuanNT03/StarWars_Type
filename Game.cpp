@@ -184,8 +184,7 @@ void Game::update()
 	{
 		if (currentButton == RETRY_BUTTON)
 		{
-			delete playGame;
-			playGame = new PlayGame(renderer, false);
+			
 			currentButton = NONE;
 		}
 		playGame->update();
@@ -206,6 +205,8 @@ void Game::update()
 		currentButton = gameOverScreen->getCurrentButton();
 		if (currentButton == RETRY_BUTTON)
 		{
+			delete playGame;
+			playGame = new PlayGame(renderer, false);
 			gameOverScreen->resetButton();
 			GameOver = false;
 			isPlaying = true;

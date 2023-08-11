@@ -60,7 +60,6 @@ void PlayGame::update()
 	{
 		timeGapCount = 0;
 		startGameTime = SDL_GetTicks();
-		cout << "startGameTime" << startGameTime/1000.0 << endl;
 		isNewGame = false;
 	}
 	Timer = SDL_GetTicks() - startGameTime;
@@ -68,8 +67,6 @@ void PlayGame::update()
 	{
 		if ((Timer) >= timeGap* timeGapCount)
 		{
-			cout << "Timer" << Timer / 1000.0 << endl;
-			cout << "timeGapCount: " << timeGapCount << endl;
 			createEnemy();
 			timeGapCount++;
 		}
@@ -113,6 +110,7 @@ void PlayGame::handleEvent(SDL_Event& event)
 		string newContent;
 		if (!isSelected())
 		{
+			cout << "1: " << endl;
 			for (int i = 0; i < deathStar.size(); i++)
 			{
 				if (!deathStar.at(i)->isEmpty())
@@ -143,7 +141,7 @@ void PlayGame::handleEvent(SDL_Event& event)
 		}
 		else
 		{
-			
+			cout << "2: " << endl;
 			letter = *deathStar.at(selectedIndex)->getContent();// const char* giống bên trên 
 			
 			if (event.key.keysym.sym == SDL_GetKeyFromName(letter.c_str()) )
@@ -225,7 +223,7 @@ void PlayGame::createEnemy()
 bool PlayGame::isSelected()
 {
 	bool selected = false;
-	if (selectedIndex = -1)
+	if (selectedIndex == -1)
 	{
 		/*for (int i = 0; i < deathStar.size(); i++)
 		{

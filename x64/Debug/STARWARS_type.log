@@ -1,3 +1,3 @@
 ﻿  PlayGame.cpp
-C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\PlayGame.cpp(69,15): warning C4018: '>=': signed/unsigned mismatch
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\PlayGame.cpp(68,15): warning C4018: '>=': signed/unsigned mismatch
   STARWARS_type.vcxproj -> C:\VisualStudio2022\source\repos\STARWARS_type\x64\Debug\STARWARS_type.exe
