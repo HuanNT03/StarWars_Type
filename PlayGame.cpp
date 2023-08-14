@@ -10,18 +10,34 @@ PlayGame::PlayGame(SDL_Renderer* ren, bool _loop)
 	isCreatedEnemy = true;
 	isNewGame = true;
 	selectedIndex = -1;
+	your_score = 0;
 
 	renderer = ren;
 
-	background = new BackGround(BACKGROUND_PATH, ren);
+	background = new BackGround(BACKGROUND_2_PATH, ren);
 
 	spaceShip = new GameObject(SHIP_PATH, ren, (SCREEN_WIDTH-spaceShip_w) / 2, (SCREEN_HEIGHT-spaceShip_h), spaceShip_w, spaceShip_h);
 
 	shoottingEffect = new AudioManager();
 	shoottingEffect->loadSoundEffect(FIRING_SOUND_EFFECT);
 
+	errorEffect = new AudioManager();
+	errorEffect->loadSoundEffect(ERROR_SOUND_PATH);
+
 	explodeEffect = new AudioManager();
 	explodeEffect->loadSoundEffect(EXPLODE_SOUND_PATH);
+
+	highScore[0] = new FontManager(FONT_PATH, ren, 22, 255, 255, 255);
+	highScore[0]->loadRenderedText("HIGH SCORE: ");
+	highScore[0]->update(10, 10);
+
+	yourScore[0] = new FontManager(FONT_PATH, ren, 22, 255, 255, 255);
+	yourScore[0]->loadRenderedText("YOUR SCORE: ");
+	yourScore[0]->update(10, highScore[0]->getHeight() + 15);
+	
+	yourScore[1] = new FontManager(FONT_PATH, ren, 22, 255, 255, 255);
+	yourScore[1]->loadRenderedText(to_string(your_score).c_str());
+	yourScore[1]->update(yourScore[0]->getWidth() + 10, highScore[0]->getHeight() + 15);
 
 	FileManager* tempQuote = new FileManager(THE_CAT_IN_THE_HAT_PATH);
 	quote = tempQuote->getData();
@@ -110,7 +126,7 @@ void PlayGame::handleEvent(SDL_Event& event)
 		string newContent;
 		if (!isSelected())
 		{
-			cout << "1: " << endl;
+			//cout << "1: " << endl;
 			for (int i = 0; i < deathStar.size(); i++)
 			{
 				if (!deathStar.at(i)->isEmpty())
@@ -120,6 +136,9 @@ void PlayGame::handleEvent(SDL_Event& event)
 					if ( SDL_GetKeyFromName( letter.c_str() ) == event.key.keysym.sym)
 					{
 						shoottingEffect->playSoundEffect();
+
+						your_score++;
+						yourScore[1]->loadRenderedText(to_string(your_score).c_str());
 
 						deathStar.at(i)->setSelected();
 						selectedIndex = i;
@@ -135,18 +154,25 @@ void PlayGame::handleEvent(SDL_Event& event)
 						}
 						break;
 					}
+					else
+					{
+						errorEffect->playSoundEffect();
+					}
 				}
 				
 			}
 		}
 		else
 		{
-			cout << "2: " << endl;
+			//cout << "2: " << endl;
 			letter = *deathStar.at(selectedIndex)->getContent();// const char* giống bên trên 
 			
 			if (event.key.keysym.sym == SDL_GetKeyFromName(letter.c_str()) )
 			{
 				shoottingEffect->playSoundEffect();
+
+				your_score++;
+				yourScore[1]->loadRenderedText(to_string(your_score).c_str());
 				
 				newContent = string(deathStar.at(selectedIndex)->getContent()).erase(0, 1);
 				deathStar.at(selectedIndex)->changeContent(newContent.c_str());
@@ -179,6 +205,10 @@ void PlayGame::render()
 	}
 
 	spaceShip->render();
+
+	yourScore[0]->render();
+	yourScore[1]->render();
+	highScore[0]->render();
 }
 
 void PlayGame::createEnemy()
@@ -246,7 +276,7 @@ bool PlayGame::isSelected()
 
 void PlayGame::deleteEnemy()
 {
-	static int count_down = 4;
+	static int count_down = 6;
 	for (int i = 0; i < deathStar.size(); i++)
 	{
 		if (deathStar.at(i)->isEmpty())
@@ -254,7 +284,7 @@ void PlayGame::deleteEnemy()
 			if (count_down == 0)
 			{
 				deathStar.erase(deathStar.begin() + i);
-				count_down = 5;
+				count_down = 7;
 			}
 			count_down--;
 		}

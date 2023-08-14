@@ -10,6 +10,7 @@
 #include "config.h"
 
 using std::vector;
+using std::to_string;
 
 
 
@@ -42,7 +43,8 @@ private:
 	int spaceShip_h = 100;
 	int quote_index;
 	int selectedIndex;
-	
+
+	Uint32 your_score;
 	Uint32 Timer = 0;
 	Uint32 startGameTime = 0;
 	//vector<int> countDown; 
@@ -54,6 +56,9 @@ private:
 	GameObject* spaceShip;
 	AudioManager* shoottingEffect;
 	AudioManager* explodeEffect;
+	AudioManager* errorEffect;
+	FontManager* yourScore[2];
+	FontManager* highScore[2];
 
 	vector<string> quote;
 

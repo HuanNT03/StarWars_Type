@@ -102,7 +102,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		startScreen = new StartScreen(renderer);
 
-		playGame = new PlayGame(renderer, false);
+		playGame = new PlayGame(renderer, GAME_LOOP);
 
 		//gameOverScreen = new GameOverScreen(renderer, playGame->winState());
 
@@ -206,7 +206,7 @@ void Game::update()
 		if (currentButton == RETRY_BUTTON)
 		{
 			delete playGame;
-			playGame = new PlayGame(renderer, false);
+			playGame = new PlayGame(renderer, GAME_LOOP);
 			gameOverScreen->resetButton();
 			GameOver = false;
 			isPlaying = true;
