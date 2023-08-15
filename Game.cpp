@@ -104,22 +104,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		playGame = new PlayGame(renderer, GAME_LOOP);
 
-		//gameOverScreen = new GameOverScreen(renderer, playGame->winState());
-
-
-		/*data = new FileManager(THE_CAT_IN_THE_HAT_PATH);
-		data->getData();*/
-
 	}
-
-	
-
-	/*themeSong = new AudioManager();
-	themeSong->loadMusic("audio/Star_Wars_Main_Theme_Song.mp3");
-	themeSong->playMusic();*/
-
-
-
 }
 
 void Game::handleEvents()
@@ -151,9 +136,9 @@ void Game::handleEvents()
 			SDL_MouseButtonEvent mouse = event.button;
 			clickSound->playSoundEffect();
 			/*text->changeColor(0, 0, 0);*/
-			if (mouse.button == SDL_BUTTON_LEFT) {
+			/*if (mouse.button == SDL_BUTTON_LEFT) {
 				printf("Left button pressed at (%d, %d)\n", mouse.x, mouse.y);
-			}
+			}*/
 			break;
 		}
 
@@ -165,8 +150,6 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	/*player->update();
-	text->update((SCREEN_WIDTH - text->getWidth()) / 2, 200);*/
 	if (inStartScreen)
 	{
 		currentButton = startScreen->getCurrentButton();
@@ -184,7 +167,6 @@ void Game::update()
 	{
 		if (currentButton == RETRY_BUTTON)
 		{
-			
 			currentButton = NONE;
 		}
 		playGame->update();
@@ -199,7 +181,7 @@ void Game::update()
 	{
 		if (currentButton == GAME_OVER)
 		{
-			gameOverScreen = new GameOverScreen(renderer, playGame->winState());
+			gameOverScreen = new GameOverScreen(renderer, playGame->getScore(), playGame->winState(), playGame->newRecord());
 			currentButton = NONE;
 		}
 		currentButton = gameOverScreen->getCurrentButton();
@@ -218,9 +200,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	/*background->render();
-	player->render();
-	text->render();*/
+	
 	if (inStartScreen)
 	{
 		startScreen->show();

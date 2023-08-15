@@ -37,3 +37,10 @@ string convertToKey(char c)
     }
     return key_value;
 }
+
+double findAngle(double sin)
+{
+    double result = 0;
+    result = (asin(sin) * 180.0) / PI;
+    return result;
+}

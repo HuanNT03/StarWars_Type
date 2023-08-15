@@ -142,6 +142,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayGame.cpp" />
     <ClCompile Include="StartScreen.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverScreen.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="PlayGame.h" />
     <ClInclude Include="StartScreen.h" />
     <ClInclude Include="FileManager.h" />

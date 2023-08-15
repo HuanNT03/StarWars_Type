@@ -2,6 +2,7 @@
 
 #include<cstdlib>
 #include<string>
+#include<math.h>
 #include "SDL.h"
 #include "config.h"
 
@@ -17,3 +18,5 @@ int getRandXpos();
 int getRandYpos();
 
 string convertToKey(char c);
+
+double findAngle(double sin);

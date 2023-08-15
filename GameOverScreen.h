@@ -11,7 +11,7 @@
 class GameOverScreen
 {
 public:
-	GameOverScreen(SDL_Renderer* ren, bool win);
+	GameOverScreen(SDL_Renderer* ren, Uint32 score, bool win, bool newRecord);
 	~GameOverScreen();
 
 	void show();
@@ -27,6 +27,6 @@ private:
 	BackGround* background;
 	GameObject* gameLogo;
 	FontManager* retryButton;
-	FontManager* gameStatement;
+	FontManager* gameStatement[2];
 };
 

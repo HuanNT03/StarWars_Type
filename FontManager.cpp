@@ -52,6 +52,8 @@ void FontManager::loadRenderedText(const char* text)
 		{
 			width = textSurface->w;
 			height = textSurface->h;
+			desRect.w = width;
+			desRect.h = height;
 		}
 		SDL_FreeSurface(textSurface);
 	}
@@ -71,8 +73,8 @@ void FontManager::update(int x, int y)
 
 	desRect.x = xpos;
 	desRect.y = ypos;
-	desRect.w = width;
-	desRect.h = height;
+	/*desRect.w = width;
+	desRect.h = height;*/
 	
 }
 

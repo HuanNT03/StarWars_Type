@@ -2,27 +2,41 @@
 
 using std::cout;
 using std::endl;
+using std::to_string;
 
-GameOverScreen::GameOverScreen(SDL_Renderer* ren, bool win)
+GameOverScreen::GameOverScreen(SDL_Renderer* ren, Uint32 score, bool win, bool newRecord)
 {
 	renderer = ren;
 	winState = win;
+	string score_statement = "Your score is: " + to_string(score);
 
 	background = new BackGround(BACKGROUND_PATH, ren);
 
 	gameLogo = new GameObject(LOGO_PATH, ren, (SCREEN_WIDTH - 200) / 2, 0, 200, 150);
 
-	gameStatement = new FontManager(FONT_PATH, ren, 90, 255, 255, 255);
+	gameStatement[0] = new FontManager(FONT_PATH, ren, 90, 255, 255, 255);
+	gameStatement[1] = new FontManager(FONT_PATH_2, ren, 25, 255, 255, 255);
 	if (win)
 	{
-		gameStatement->loadRenderedText("YOU WIN!!!");
+		gameStatement[0]->loadRenderedText("YOU WIN!!!");
 	}
 	else
 	{
-		gameStatement->loadRenderedText("GAMEOVER");
+		if (newRecord)
+		{
+			gameStatement[0]->loadRenderedText("NEW HIGHSCORE!!!");
+		}
+		else
+		{
+			gameStatement[0]->loadRenderedText("GAMEOVER");
+		}
+		
 	}
 	
-	gameStatement->update((SCREEN_WIDTH - gameStatement->getWidth()) / 2, 260);
+	gameStatement[0]->update((SCREEN_WIDTH - gameStatement[0]->getWidth()) / 2, 260);
+
+	gameStatement[1]->loadRenderedText(score_statement.c_str());
+	gameStatement[1]->update((SCREEN_WIDTH - gameStatement[1]->getWidth()) / 2, 350);
 
 	retryButton = new FontManager(FONT_PATH, ren, 50, 255, 255, 255);
 	retryButton->loadRenderedText("RETRY");
@@ -40,7 +54,8 @@ void GameOverScreen::show()
 {
 	background->render();
 	gameLogo->render();
-	gameStatement->render();
+	gameStatement[0]->render(); 
+	gameStatement[1]->render();
 	retryButton->render();
 }
 
