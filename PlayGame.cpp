@@ -178,7 +178,6 @@ void PlayGame::update()
 				{
 					bullet.at(j)->update((deathStar.at(selectedIndex)->getRect().x) + (deathStar.at(selectedIndex)->getRect().w / 2), (deathStar.at(selectedIndex)->getRect().y) + (deathStar.at(selectedIndex)->getRect().h / 2));
 				}
-				
 			}
 			else 
 			{

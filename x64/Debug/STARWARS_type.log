@@ -1,4 +1,12 @@
-﻿  PlayGame.cpp
+﻿  Game.cpp
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\config.h(29,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\Game.cpp(42,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Laser.cpp
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\config.h(29,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\Laser.cpp(63,22): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\Laser.cpp(64,22): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+  PlayGame.cpp
 C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\config.h(29,37): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\VisualStudio2022\source\repos\STARWARS_type\STARWARS_type\PlayGame.cpp(131,16): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
   STARWARS_type.vcxproj -> C:\VisualStudio2022\source\repos\STARWARS_type\x64\Debug\STARWARS_type.exe

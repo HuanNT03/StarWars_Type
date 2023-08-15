@@ -16,7 +16,7 @@ public:
 	bool reachDest() { return arrive; }
 
 private:
-	float angle = 0.0;
+	double angle;
 	float ratio;
 	int textureWidth;
 	int textureHeight;

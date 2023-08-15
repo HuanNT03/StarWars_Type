@@ -6,6 +6,7 @@ Laser::Laser(const char* path, SDL_Renderer* ren, int x, int y, int w, int h)
 	renderer = ren;
 	renderer = ren;
 	ratio = float(w) / h;
+	angle = 0.0;
 	texture = TextureManager::loadTexture(path, ren);
 	SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
 
@@ -50,5 +51,15 @@ void Laser::render()
 
 void Laser::moveToPoint(int& xStart, int& yStart, int xDest, int yDest, int velocity)
 {
-	yStart -= velocity;
+	//yStart -= velocity;
+	if (angle == 0.0)
+	{ 
+		double _x = xDest - xStart;
+		double _y = yDest - yStart;
+		double distance = sqrt(pow(_x, 2) + pow(_y, 2));
+		double _sin = _x / distance;
+		angle = findAngle(_sin);
+	}
+	xStart += (velocity * sin(angle));
+	yStart -= (velocity * cos(angle));
 }
